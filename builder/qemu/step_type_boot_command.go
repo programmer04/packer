@@ -40,8 +40,6 @@ func (s *stepTypeBootCommand) Run(ctx context.Context, state multistep.StateBag)
 	debug := state.Get("debug").(bool)
 	httpPort := state.Get("http_port").(uint)
 	ui := state.Get("ui").(packer.Ui)
-	vncPort := state.Get("vnc_port").(uint)
-	vncIP := state.Get("vnc_ip").(string)
 
 	if config.VNCConfig.DisableVNC {
 		log.Println("Skipping boot command step...")

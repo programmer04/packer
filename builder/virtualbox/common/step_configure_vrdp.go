@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"math/rand"
-	"net"
 
 	"github.com/hashicorp/packer/helper/multistep"
 	"github.com/hashicorp/packer/packer"
@@ -33,23 +31,6 @@ func (s *StepConfigureVRDP) Run(_ context.Context, state multistep.StateBag) mul
 	vmName := state.Get("vmName").(string)
 
 	log.Printf("Looking for available port between %d and %d on %s", s.VRDPPortMin, s.VRDPPortMax, s.VRDPBindAddress)
-	var vrdpPort uint
-	portRange := int(s.VRDPPortMax - s.VRDPPortMin)
-
-	for {
-		if portRange > 0 {
-			vrdpPort = uint(rand.Intn(portRange)) + s.VRDPPortMin
-		} else {
-			vrdpPort = s.VRDPPortMin
-		}
-
-		log.Printf("Trying port: %d", vrdpPort)
-		l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", s.VRDPBindAddress, vrdpPort))
-		if err == nil {
-			defer l.Close()
-			break
-		}
-	}
 
 	command := []string{
 		"modifyvm", vmName,

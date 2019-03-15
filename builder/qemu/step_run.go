@@ -62,8 +62,7 @@ func (s *stepRun) Cleanup(state multistep.StateBag) {
 func getCommandArgs(bootDrive string, state multistep.StateBag) ([]string, error) {
 	config := state.Get("config").(*Config)
 	isoPath := state.Get("iso_path").(string)
-	vncIP := state.Get("vnc_ip").(string)
-	vncPort := state.Get("vnc_port").(uint)
+
 	ui := state.Get("ui").(packer.Ui)
 	driver := state.Get("driver").(Driver)
 
@@ -116,8 +115,6 @@ func getCommandArgs(bootDrive string, state multistep.StateBag) ([]string, error
 	deviceArgs = append(deviceArgs, fmt.Sprintf("%s,netdev=user.0", config.NetDevice))
 
 	if config.Headless == true {
-		vncIpRaw, vncIpOk := state.GetOk("vnc_ip")
-		vncPortRaw, vncPortOk := state.GetOk("vnc_port")
 
 		if vncIpOk && vncPortOk {
 			vncIp := vncIpRaw.(string)

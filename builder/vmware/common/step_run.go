@@ -37,9 +37,6 @@ func (s *StepRun) Run(_ context.Context, state multistep.StateBag) multistep.Ste
 
 	ui.Say("Starting virtual machine...")
 	if s.Headless {
-		vncIpRaw, vncIpOk := state.GetOk("vnc_ip")
-		vncPortRaw, vncPortOk := state.GetOk("vnc_port")
-		vncPasswordRaw, vncPasswordOk := state.GetOk("vnc_password")
 
 		if vncIpOk && vncPortOk && vncPasswordOk {
 			vncIp := vncIpRaw.(string)

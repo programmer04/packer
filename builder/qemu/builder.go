@@ -406,13 +406,11 @@ func (b *Builder) Run(ui packer.Ui, hook packer.Hook) (packer.Artifact, error) {
 	)
 
 	if b.config.Comm.Type != "none" {
-		steps = append(steps,
-			new(stepForwardSSH),
-		)
+		steps = append(steps) // REPLACE ME ?
+
 	}
 
 	steps = append(steps,
-		new(stepConfigureVNC),
 		steprun,
 		&stepTypeBootCommand{},
 	)

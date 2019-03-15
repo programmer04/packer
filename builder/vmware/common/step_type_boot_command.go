@@ -48,9 +48,6 @@ func (s *StepTypeBootCommand) Run(ctx context.Context, state multistep.StateBag)
 	driver := state.Get("driver").(Driver)
 	httpPort := state.Get("http_port").(uint)
 	ui := state.Get("ui").(packer.Ui)
-	vncIp := state.Get("vnc_ip").(string)
-	vncPort := state.Get("vnc_port").(uint)
-	vncPassword := state.Get("vnc_password")
 
 	// Wait the for the vm to boot.
 	if int64(s.BootWait) > 0 {
